@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporary Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .email {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .inbox {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temporary Email Generator</h1>
+        <div class="email">
+            <p>Here's your temporary email:</p>
+            <p id="tempEmail">Loading...</p>
+        </div>
+
+        <h2>Inbox</h2>
+        <div class="inbox">
+            <label for="email">Enter your temporary email:</label><br>
+            <input type="email" id="email" name="email"><br><br>
+            <button onclick="getMessages()">View Inbox</button>
+            <div id="inboxMessages"></div>
+        </div>
+    </div>
+
+    <script>
+        async function getTempEmail() {
+            const response = await fetch('/tempmail/gen');
+            const data = await response.json();
+            document.getElementById('tempEmail').innerText = data.email;
+        }
+
+        async function getMessages() {
+            const email = document.getElementById('email').value;
+            const response = await fetch(`/tempmail/message?email=${email}`);
+            const data = await response.json();
+            const inboxDiv = document.getElementById('inboxMessages');
+            inboxDiv.innerHTML = '';
+
+            if (data.messages.length === 0) {
+                inboxDiv.innerHTML = 'No messages found.';
+            } else {
+                data.messages.forEach(message => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.innerHTML = `
+                        <p>Sender: ${message.sender}</p>
+                        <p>Subject: ${message.subject}</p>
+                        <p>Message: ${message.message}</p>
+                        <hr>
+                    `;
+                    inboxDiv.appendChild(messageDiv);
+                });
+            }
+        }
+
+        // Load temporary email on page load
+        getTempEmail();
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crowx REST API!!</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        animation: rainbow 10s linear infinite;
+      }
+
+      @keyframes rainbow {
+        0% {
+          background-color: red;
+        }
+
+        16.67% {
+          background-color: orange;
+        }
+
+        33.33% {
+          background-color: yellow;
+        }
+
+        50% {
+          background-color: green;
+        }
+
+        66.67% {
+          background-color: blue;
+        }
+
+        83.33% {
+          background-color: indigo;
+        }
+
+        100% {
+          background-color: violet;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: #007bff;
+      }
+
+      .center {
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      .animated-rainbow {
+        background: linear-gradient(
+          to right,
+          #ff0000,
+          #ff7f00,
+          #ffff00,
+          #00ff00,
+          #0000ff,
+          #4b0082,
+          #8b00ff
+        );
+        background-size: 200% 100%;
+        animation: rainbow-animation 5s linear infinite; /* Changed to a unique name */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      @keyframes rainbow-animation {
+        /* Changed to a unique name */
+        0% {
+          background-position: 0 0;
+        }
+
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 20px auto;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      footer {
+        margin-top: 50px;
+      }
+
+      .linkflex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #3b5998;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+      }
+
+      .linkflex:hover {
+        background-color: #2d4373;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="center">
+      <h1 class="animated-rainbow">Crowx rest apis</h1>
+      <p id="datetime"></p>
+
+      <div class="description">
+        <p>Simple API</p>
+        <table>
+          <tr>
+            <th class="animated-rainbow">Number</th>
+            <th class="animated-rainbow">Name</th>
+            <th class="animated-rainbow">Method</th>
+            <th class="animated-rainbow">Action</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>TIKTOKDL</td>
+            <td>GET</td>
+            <td><a href="/tikdl?link=">[ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>STALK</td>
+            <td>POST</td>
+            <td><a href="/stalk/html">[ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>SIMSIMI</td>
+            <td>GET</td>
+            <td><a href="/sim?ask=hi&lang=ph">[ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>TEACH</td>
+            <td>GET</td>
+            <td><a href="/teach?ask=hi&ans=hello">[ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>HERCAI</td>
+            <td>GET</td>
+            <td><a href="/hercai?ask=hi">[ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>TIKSEARCH</td>
+            <td>GET</td>
+            <td><a href="/tiksearch? search=">[ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>TIKSTALK</td>
+            <td>GET</td>
+            <td><a href="/tikstalk?username="> [ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>REMINI</td>
+            <td>GET</td>
+            <td>
+              <a href="/remini?input="> [ ➠ ]</a>
+            </td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>SHOTI</td>
+            <td>POST</td>
+            <td>
+              <a href="/shoti/html"> [ ➠ ]</a>
+            </td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>PINTEREST</td>
+            <td>GET</td>
+            <td>
+              <a href="/pinterest?search=mirai&count=10"> [ ➠ ]</a>
+            </td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>IMGUR</td>
+            <td>GET</td>
+            <td><a href="/imgur?link="> [ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>TEMPMAIL</td>
+            <td>POST</td>
+            <td><a href="/temp/html"> [ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>CUPCUTDL</td>
+            <td>GET</td>
+            <td><a href="/cupcutdl?link="> [ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>BIBLE</td>
+            <td>GET</td>
+            <td><a href="/bible">[ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>EMOJIMIX</td>
+            <td>GET</td>
+            <td><a href="/emojimix?emoji1=&emoji2="> [ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>REMOVEBG</td>
+            <td>GET</td>
+            <td><a href="/removebg?input="> [ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>JEJEMON</td>
+            <td>GET</td>
+            <td><a href="/jeje?text=kamusta mga ril niggas"> [ ➠ ]</a></td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>DOWNLOADER</td>
+            <td>GET</td>
+            <td><a href="/downloader?url="> [ ➠ ]</a></td>
+          </tr>
+        </table>
+
+        <footer class="animated-rainbow">
+          <p>Ninja</p>
+        </footer>
+        <table></table>
+      </div>
+    </div>
+    <script></script>
+    <script>
+      function updateDateTime() {
+        var now = new Date();
+        var dateTimeString = now.toLocaleString();
+        document.getElementById("datetime").innerHTML = dateTimeString;
+      }
+      setInterval(updateDateTime, 1000);
+    </script>
+  </body>
+</html>

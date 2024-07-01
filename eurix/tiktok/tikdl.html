@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Downloader</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .video-container {
+        margin-top: 20px;
+    }
+    .video-container video {
+        width: 100%;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>TikTok Downloader</h1>
+    <form id="downloadForm">
+        <div class="form-group">
+            <label for="videoLink">Paste TikTok Video Link:</label>
+            <input type="text" id="videoLink" name="videoLink" placeholder="Enter TikTok video link..." required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Download Video">
+        </div>
+    </form>
+    <div class="video-container" id="videoContainer" style="display: none;">
+        <video controls autoplay id="videoPlayer"></video>
+    </div>
+</div>
+
+<script>
+    document.getElementById("downloadForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+        const videoLink = document.getElementById("videoLink").value.trim();
+        if (videoLink) {
+            const response = await fetch(`/tikdl?link=${encodeURIComponent(videoLink)}`);
+            const data = await response.json();
+            if (data && data.url) {
+                document.getElementById("videoContainer").style.display = "block";
+                document.getElementById("videoPlayer").src = data.url;
+            } else {
+                alert("Failed to fetch video. Please check the link and try again.");
+            }
+        } else {
+            alert("Please enter a TikTok video link.");
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SimSimi Teach Tool</title>
+
+<script>
+function teachSimSimi() {
+  var userInput = document.getElementById("userInput").value;
+  var teach = document.getElementById("teach").value;
+
+  fetch(`/teach?ask=${encodeURIComponent(userInput)}&ans=${encodeURIComponent(teach)}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("response").innerText = "your ask: " + data.ask + "\n" + "your answer: " + data.ans;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+</script>
+
+</head>
+<body>
+
+<h1>SimSimi Teach Tool</h1>
+
+<form id="teachForm">
+  <label for="userInput">Question:</label><br>
+  <input type="text" id="userInput" name="userInput"><br><br>
+  <label for="teach">Answer to Teach:</label><br>
+  <input type="text" id="teach" name="teach"><br><br>
+  <button type="button" onclick="teachSimSimi()">Teach SimSimi</button>
+</form>
+
+<div id="response"></div>
+
+</body>
+</html>

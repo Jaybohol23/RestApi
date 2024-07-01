@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinterest Image Search</title>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .search-form {
+      margin-bottom: 20px;
+    }
+    .search-form input[type="text"],
+    .search-form input[type="number"] {
+      width: 45%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .search-form button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-gap: 20px;
+    }
+    .image-grid img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form class="search-form" id="search-form">
+      <input type="text" id="search-input" placeholder="Enter search keyword">
+      <input type="number" id="amount-input" placeholder="Amount" min="1" value="6">
+      <button type="submit">Search</button>
+    </form>
+    <div class="image-grid" id="image-grid">
+      <!-- Images will be displayed here -->
+    </div>
+  </div>
+
+  <script>
+    // JavaScript for fetching and displaying images
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      var searchTerm = document.getElementById('search-input').value;
+      var amount = document.getElementById('amount-input').value;
+      searchImages(searchTerm, amount);
+    });
+
+    function searchImages(keyword, amount) {
+      fetch(`/pinterest?search=${encodeURIComponent(keyword)}&count=${encodeURIComponent(amount)}`)
+        .then(response => response.json())
+        .then(data => {
+          displayImages(data.data);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function displayImages(images) {
+      var imageGrid = document.getElementById('image-grid');
+      imageGrid.innerHTML = ''; // Clear previous images
+      
+      images.forEach(imageUrl => {
+        var imageElement = document.createElement('img');
+        imageElement.src = imageUrl;
+        imageGrid.appendChild(imageElement);
+      });
+    }
+  </script>
+</body>
+</html>

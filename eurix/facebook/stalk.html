@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Stalker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      text-align: center;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 200px;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    button[type="submit"] {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    #userData {
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    #profilePic {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px; 
+    }
+  </style>
+</head>
+<body>
+  <h1>User Stalker</h1>
+  <form id="stalkForm">
+    <label for="userId">Enter User ID:</label>
+    <input type="text" id="userId" name="uid">
+    <label for="token">Enter Token:</label>
+    <input type="password" id="token" name="token">
+    <button type="submit">Stalk</button>
+  </form>
+
+  <div id="userData"></div>
+  <script>
+    document.getElementById('stalkForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const userId = document.getElementById('userId').value;
+      const token = document.getElementById('token').value; // Added this line
+
+      try {
+        const response = await fetch('/stalk', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ uid: userId, token: token })
+        });
+
+        const data = await response.json();
+        const userDataDiv = document.getElementById('userData');
+        userDataDiv.innerHTML = `
+          <h2>User Data</h2>
+          <p>ID: ${data.id}</p>
+          <p>Name: ${data.name}</p>
+          <p>Link: ${data.link}</p>
+          <p>Relationship Status: ${data.relationship}</p>
+          <p>Significant Other: ${data.love}</p>
+          <p>Gender: ${data.gender}</p>
+          <p>Creation Time: ${data.create}</p>
+          <p>Username: ${data.username}</p>
+          <p>Hometown: ${data.hometown}</p>
+          <p>Location: ${data.location}</p>
+          <p>Birthday: ${data.birthday}</p>
+          <p>About: ${data.about}</p>
+          <p>Locale: ${data.locale}</p>
+          <p>Verified: ${data.verified}</p>
+          <p>Followers: ${data.followers}</p> 
+          <img id="profilePic" src="https://graph.facebook.com/${userId}/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662" alt="Profile Photo">
+        `;
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
